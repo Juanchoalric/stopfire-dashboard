@@ -12,8 +12,11 @@ def send_false_positive(key):
 
 def app():
 
-    result = requests.get(url="http://127.0.0.1:5000/alerts")
-    
+    try:
+        result = requests.get(url="http://127.0.0.1:5000/alerts")
+    except:
+        st.title("Working to solve the problem :)")
+        st.image("../assets/StopFire_logo.png")
     data = result.json()["data"]
 
     fires = {
