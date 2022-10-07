@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 from apps import home, fire_spots  # import your app modules here
+import pathlib
 
 st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 
@@ -23,7 +24,7 @@ if "page" in params:
 else:
     default_index = 0
 
-st.sidebar.image("./assets/StopFire_logo.png", use_column_width=True)
+st.sidebar.image(f"{pathlib.Path(__file__).parent.resolve()}" + "/assets/StopFire_logo.png", use_column_width=True)
 with st.sidebar:
     selected = option_menu(
         "StopFire",
