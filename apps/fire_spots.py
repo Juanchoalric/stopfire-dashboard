@@ -1,8 +1,5 @@
-from distutils.command.config import dump_file
 import streamlit as st
 import leafmap.foliumap as leafmap
-import folium
-from folium import IFrame
 import pandas as pd
 import requests
 import datetime
@@ -11,11 +8,11 @@ from datetime import timedelta
 
 def send_false_positive(key):
     params = {"key": key}
-    requests.put("http://172.20.0.3:5000/alert/", params=params)
+    requests.put("http://127.0.0.1:5000/alert/", params=params)
 
 def app():
 
-    result = requests.get(url="http://172.20.0.3:5000/alerts")
+    result = requests.get(url="http://127.0.0.1:5000/alerts")
     
     data = result.json()["data"]
 
@@ -44,9 +41,9 @@ def app():
 
     df["taken_at"] = pd.to_datetime(df["taken_at"])
     df["date"] = pd.to_datetime(df["taken_at"]).dt.date
-    df["month"] = df["date"].apply(lambda x: x.month)
-    start_filter = st.date_input("Start datetime: ", datetime.datetime.now() - timedelta(364))
-    end_filter = st.date_input("End datetime: ", datetime.datetime(2028, 9, 1))
+    df["month"] = df["date"].apply(lambda x: str(x.year) + "-" + str(x.month))
+    start_filter = st.date_input("Dia de incio: ", datetime.datetime.now() - timedelta(90))
+    end_filter = st.date_input("Dia de fin: ", datetime.datetime.now())
     if start_filter:
         df = df[df["date"] > start_filter]
     if end_filter:
@@ -58,7 +55,7 @@ def app():
     zones = list(zones)
     zones.append("All")
 
-    zone = st.radio("Pick a zone", zones)
+    zone = st.radio("Elegi una zona: ", list(reversed(zones)))
     
     if zone:
         if zone != "All":
@@ -69,14 +66,14 @@ def app():
     camera_types = list(camera_types)
     camera_types.append("All")
 
-    camera_type = st.radio("Elegi una camara", camera_types)
+    camera_type = st.radio("Elegi una camara: ", list(reversed(camera_types)))
 
 
     if camera_type:
         if camera_type != "All":
             df = df[df["camera_type"] == camera_type]
 
-    st.dataframe(df)
+    st.dataframe(df[["taken_at", "latitude", "longitude", "zone", "camera_type", "image"]].sort_values(by="taken_at", ascending=False))
 
     m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
    #m.add_circle_markers_from_xy(
@@ -96,7 +93,7 @@ def app():
     with col1:
         st.subheader("Horario Tomada")
     with col2:
-        st.subheader("Long, Lat & Camara")
+        st.subheader("Lat, Long & Camara")
     with col4:
         st.subheader("Imagen")
     with col5:
@@ -112,10 +109,10 @@ def app():
             with col1:
                 st.write(f"{taken_at}")
             with col2:
-                st.write(f"({i[1][0]}, {i[1][1]})")
+                st.write(f"({i[1][1]}, {i[1][0]})")
                 st.write(f"Camera: {i[1][6]}")
             with col4:
-                st.image(image, width = 250)
+                st.image(image, width = 200)
             with col5:
                  button = st.button("No es un incendio", key=i[1][2])
                  if button:

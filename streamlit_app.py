@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from apps import home, heatmap, upload, fire_spots  # import your app modules here
+from apps import home, fire_spots  # import your app modules here
 
 st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 
@@ -9,8 +9,6 @@ st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 
 apps = [
     {"func": home.app, "title": "Home", "icon": "house"},
-    {"func": heatmap.app, "title": "Heatmap", "icon": "map"},
-    {"func": upload.app, "title": "Upload", "icon": "cloud-upload"},
     {"func": fire_spots.app, "title": "Fire", "icon": "map"}
 ]
 
@@ -25,6 +23,7 @@ if "page" in params:
 else:
     default_index = 0
 
+st.sidebar.image("./assets/StopFire_logo.png", use_column_width=True)
 with st.sidebar:
     selected = option_menu(
         "StopFire",
