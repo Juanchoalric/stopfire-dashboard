@@ -63,7 +63,7 @@ def app():
         df["month"] = df["date"].apply(lambda x: str(x.year) + "-" + str(x.month))
         col1, col2 = st.columns(2)
         with col1:
-            start_filter = st.date_input("FechaqA de incio: ", datetime.datetime.now() - timedelta(90))
+            start_filter = st.date_input("Fecha de incio: ", datetime.datetime.now() - timedelta(90))
         with col2:
             end_filter = st.date_input("Fecha de fin: ", datetime.datetime.now())
         if start_filter:
@@ -112,13 +112,7 @@ def app():
             st.bar_chart(data=df_zones, x=list(df_zones.index), y="Incendios")
 
         m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
-        '''
-        m.add_circle_markers_from_xy(
-            df, 
-            x="longitude", 
-            y="latitude", 
-            popup=["image_html"])
-        '''
+
         m.add_points_from_xy(data=df, x='longitude', y='latitude', color_column="month", icon_colors=["fire"], popup=["image_html"])
 
         m.to_streamlit(height=700)
@@ -130,7 +124,7 @@ def app():
         with col1:
             st.subheader("Fecha de captura")
         with col2:
-            st.subheader("Lat, Long & Camara")
+            st.subheader("Lat, Long & Cámara")
         with col4:
             st.subheader("Imagen")
         with col5:

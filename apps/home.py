@@ -56,7 +56,7 @@ def get_cameras_from_service():
 
 def app():
 
-    st_autorefresh(interval=5 * 60 * 1000, key="dataframerefresh")
+    st_autorefresh(interval=5 * 60 * 1000, key="dataframerefresh2")
 
     st.title("Mapa de Cámaras")
 
@@ -66,18 +66,18 @@ def app():
     """
     )
 
-    df = get_cameras_from_service()
-
-    m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
-
-    m.add_points_from_xy(data=df, x='longitude', y='latitude', color_column="zone", icon_names=["camera"])
-
-    m.to_streamlit(height=700)
-
     try:
         flag = 1
         df_fires = get_fires_from_service()
         df_fires["taken_at"] = pd.to_datetime(df_fires["taken_at"])
+        df = get_cameras_from_service()
+
+        m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
+
+        m.add_points_from_xy(data=df, x='longitude', y='latitude', color_column="zone", icon_names=["camera"])
+
+        m.to_streamlit(height=700)
+
     except:
         st.title("Estamos trabajando para resolver el problema :)")
         st.image(f"{pathlib.Path(__file__).parent.parent}" + "/assets/StopFire_logo_center.png")
