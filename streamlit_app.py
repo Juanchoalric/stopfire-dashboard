@@ -1,16 +1,14 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from apps import home, fire_spots  # import your app modules here
+from apps import home, fire_spots, about  # import your app modules here
 import pathlib
 
 st.set_page_config(page_title="Streamlit Geospatial", layout="wide")
 
-# A dictionary of apps in the format of {"App title": "App icon"}
-# More icons can be found here: https://icons.getbootstrap.com
-
 apps = [
-    {"func": home.app, "title": "Home", "icon": "house"},
-    {"func": fire_spots.app, "title": "Fire", "icon": "map"}
+    {"func": home.app, "title": "Cámaras", "icon": "camera-fill"},
+    {"func": fire_spots.app, "title": "Incendios", "icon": "map"},
+    {"func": about.app, "title": "Sobre nosotros", "icon": "file-person-fill"}
 ]
 
 titles = [app["title"] for app in apps]
@@ -24,10 +22,10 @@ if "page" in params:
 else:
     default_index = 0
 
-st.sidebar.image(f"{pathlib.Path(__file__).parent.resolve()}" + "/assets/StopFire_logo.png", use_column_width=True)
+st.sidebar.image(f"{pathlib.Path(__file__).parent.resolve()}" + "/assets/StopFire_logo_center.png", use_column_width=True)
 with st.sidebar:
     selected = option_menu(
-        "StopFire",
+        "Menú",
         options=titles,
         icons=icons,
         menu_icon="cast",
@@ -35,6 +33,7 @@ with st.sidebar:
     )
 
 for app in apps:
+
     if app["title"] == selected:
         app["func"]()
         break
