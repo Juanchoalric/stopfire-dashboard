@@ -14,10 +14,10 @@ import streamlit.components.v1 as components
 
 def send_false_positive(key):
     params = {"key": key}
-    requests.put("http://127.0.0.1:5000/alert/", params=params)
+    requests.put("http://18.230.61.125:5000/alert/", params=params)
 
 def get_data_from_service():
-    result = requests.get(url="http://127.0.0.1:5000/alerts")
+    result = requests.get(url="http://18.230.61.125:5000/alerts")
     data = result.json()["data"]
 
     fires = {
@@ -67,11 +67,11 @@ def app():
         with col2:
             end_filter = st.date_input("Fecha de fin: ", datetime.datetime.now())
         if start_filter:
-            df = df[df["date"] > start_filter]
+            df = df[df["date"] >= start_filter]
         if end_filter:
-            df = df[df["date"] < end_filter]
+            df = df[df["date"] <= end_filter]
         if start_filter and end_filter:
-            df = df[(df["date"] > start_filter) & (df["date"] < end_filter)]
+            df = df[(df["date"] >= start_filter) & (df["date"] <= end_filter)]
         
         zones = df["zone"].unique()
         zones = list(zones)
