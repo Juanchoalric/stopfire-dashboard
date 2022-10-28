@@ -63,7 +63,7 @@ def app():
         df["month"] = df["date"].apply(lambda x: str(x.year) + "-" + str(x.month))
         col1, col2 = st.columns(2)
         with col1:
-            start_filter = st.date_input("Fecha de incio: ", datetime.datetime.now() - timedelta(90))
+            start_filter = st.date_input("Fecha de inicio: ", datetime.datetime.now() - timedelta(90))
         with col2:
             end_filter = st.date_input("Fecha de fin: ", datetime.datetime.now())
         if start_filter:
