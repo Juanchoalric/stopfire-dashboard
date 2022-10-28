@@ -141,7 +141,7 @@ def app():
                     st.write(f"{taken_at}")
                 with col2:
                     st.write(f"({i[1][1]}, {i[1][0]})")
-                    st.write(f"Camara: {i[1][6]}")
+                    st.write(f"Cámara: {i[1][6]}")
                 with col4:
                     st.image(image, width = 200)
                 with col5:
