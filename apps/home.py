@@ -58,7 +58,7 @@ def app():
 
     st_autorefresh(interval=5 * 60 * 1000, key="dataframerefresh2")
 
-    st.title("Mapa de Cámaras")
+    st.title("Mapa de cámaras")
 
     st.markdown(
         """
@@ -95,11 +95,11 @@ def app():
         #st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#cccccc;" /> """, unsafe_allow_html=True)
         
         with col1:
-            text_1 = f"<h5>Incendios Detectados ultimas 24 hs: {fires_in_zones_less_24_hs}</h5>"
+            text_1 = f"<h5>Incendios detectados últimas 24 hs: {fires_in_zones_less_24_hs}</h5>"
             st.markdown(text_1, unsafe_allow_html=True)
 
         with col2:
-            text_1 = f"<h5>Numero de cámaras por zonas: {cameras_in_zone}</h5>"
+            text_1 = f"<h5>Numero de cámaras: {cameras_in_zone}</h5>"
             st.markdown(text_1, unsafe_allow_html=True)
 
         st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#4881DB;" /> """, unsafe_allow_html=True)
