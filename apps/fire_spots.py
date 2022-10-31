@@ -14,10 +14,10 @@ import streamlit.components.v1 as components
 
 def send_false_positive(key):
     params = {"key": key}
-    requests.put("http://18.230.61.125:5000/alert/", params=params)
+    requests.put("http://54.207.31.1:5000/alert/", params=params)
 
 def get_data_from_service():
-    result = requests.get(url="http://18.230.61.125:5000/alerts")
+    result = requests.get(url="http://54.207.31.1:5000/alerts")
     data = result.json()["data"]
 
     fires = {

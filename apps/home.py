@@ -7,7 +7,7 @@ from datetime import timedelta, datetime
 from streamlit_autorefresh import st_autorefresh
 
 def get_fires_from_service():
-    result = requests.get(url="http://18.230.61.125:5000/alerts")
+    result = requests.get(url="http://54.207.31.1:5000/alerts")
     data = result.json()["data"]
 
     fires = {
@@ -34,7 +34,7 @@ def get_fires_from_service():
     return pd.DataFrame.from_dict(fires)
 
 def get_cameras_from_service():
-    result = requests.get(url="http://18.230.61.125:5000/cameras")
+    result = requests.get(url="http://54.207.31.1:5000/cameras")
     data = result.json()["data"]
 
     cameras = {
